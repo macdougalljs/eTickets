@@ -36,14 +36,17 @@ namespace eTickets.Data.Services
 
         public async Task<Actor> GetByIdAsync(int id)
         {
-            // throw new System.NotImplementedException();
+           
             var result = await _context.Actors.FirstOrDefaultAsync(n => n.ActorId == id);
             return result;
         }
 
-        public Actor Update(int id, Actor newActor)
+        public async Task<Actor> UpdateAsync(int id, Actor newActor)
         {
-            throw new System.NotImplementedException();
+          
+            _context.Update(newActor);
+            await _context.SaveChangesAsync();
+            return newActor;    
         }
     }
 }
