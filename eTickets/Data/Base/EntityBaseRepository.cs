@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,21 +17,23 @@ namespace eTickets.Data.Base
 
         public async Task DeleteAsync(int id)
         {
-            var result = await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
-            _context.Set<T>().Remove(result);
-            await _context.SaveChangesAsync();
+           var entity = await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
+
+            EntityEntry entityEntry = _context.Entry<T>(entity);
+            // set the state
+            entityEntry.State = EntityState.Deleted;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
 
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
 
-        public async Task<T> UpdateAsync(int id, T entity)
+        public async Task UpdateAsync(int id, T entity)
         {
-            _context.Update(entity);
-            await _context.SaveChangesAsync();
-            return entity;
-
+            EntityEntry entityEntry = _context.Entry<T>(entity);
+            // set the state
+            entityEntry.State = EntityState.Modified;
+           
         }
    
     }
