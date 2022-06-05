@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using eTickets.Data.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace eTickets.Models
 {
-    public class Actor
+    public class Actor:IEntityBase
     {
         [Key]
-        public int ActorId
+        public int Id
         {
             get; set;
         }
+
         [Display(Name ="Profile Picture")]
         [Required(ErrorMessage = "Profile picture is required")]
         public string ProfilePictureURL
