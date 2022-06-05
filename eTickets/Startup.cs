@@ -34,7 +34,7 @@ namespace eTickets
 
             // services configuration
             services.AddScoped<IActorsService, ActorsService>();
-
+            services.AddScoped<IProducersService, ProducersService>();
 
             services.AddControllersWithViews(); // This is all you need to do to configure SQL
         }
