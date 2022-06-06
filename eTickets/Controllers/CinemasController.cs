@@ -50,7 +50,7 @@ namespace eTickets.Controllers
             return View(cinemaDetails);
         }
 
-        // Get: Cinemas/Edit/1
+        //Get: Cinemas/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
             var cinemaDetails = await _service.GetByIdAsync(id);
@@ -59,14 +59,12 @@ namespace eTickets.Controllers
             return View(cinemaDetails);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("ID, Logo, Name, Description")] Cinema cinema)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Cinema cinema)
         {
             if (!ModelState.IsValid)
-            {
                 return View(cinema);
-            }
-
             await _service.UpdateAsync(id, cinema);
             return RedirectToAction(nameof(Index));
         }
