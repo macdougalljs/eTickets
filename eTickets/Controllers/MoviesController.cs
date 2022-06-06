@@ -29,7 +29,16 @@ namespace eTickets.Controllers
         public async Task<IActionResult> Details(int id)
         {
         var movieDetail = await _service.GetMovieByIdAsync(id);
-            return View(movieDetail);
+            return View(movieDetail);    // passing movie data to the view
+        }
+
+        // GET: Movies/Create
+
+        public IActionResult Create()
+        {
+            ViewData["Welcome"] = "welcome to our store";
+            ViewBag.Description = "This is the store description";
+            return View();
         }
 
     }
