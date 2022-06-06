@@ -19,7 +19,7 @@ namespace eTickets.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allMovies = await _service.GetAllAsync(); 
+            var allMovies = await _service.GetAllAsync(n => n.Cinema);   // this will be the property that's included
           
             return View(allMovies);
         }
