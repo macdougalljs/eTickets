@@ -26,6 +26,21 @@ namespace eTickets.Controllers
             return View(allMovies);
         }
 
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allMovies = await _service.GetAllAsync(n => n.Cinema);   // this will be the property that's included
+
+            // filter the movies results
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = allMovies.Where(n => n.Name.Contains(searchString) || n.Description.Contains(searchString)).ToList();
+                return View("Index", filteredResult);
+            }
+
+            return View("Index",allMovies);
+        }
+
         //GET: Movies/Details/1
 
         public async Task<IActionResult> Details(int id)
@@ -90,7 +105,7 @@ namespace eTickets.Controllers
                 Description = movieDetails.Description,
                 Price = movieDetails.Price,
                 StartDate = movieDetails.StartDate,
-                EndDate = movieDetails.EndDate, 
+                EndDate = movieDetails.EndDate,
                 ImageURL = movieDetails.ImageURL,
                 MovieCategory = movieDetails.MovieCategory,
                 CinemaId = movieDetails.CinemaId,
