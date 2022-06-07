@@ -60,5 +60,10 @@ namespace eTickets.Data
         {
             get; set;
         }
+
+        public DbSet<ShoppingCartItem> ShoppingCartItems
+        {
+            get; set;
+        }
     }
 }
