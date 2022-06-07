@@ -1,5 +1,8 @@
 ﻿using eTickets.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +13,24 @@ namespace eTickets.Data.Cart
         public AppDbContext _context
         {
             get; set;
+        }
+
+        public static ShoppingCart GetShoppingCart(IServiceProvider services)
+        {
+            // check the session to see if we already have a cart with that cart ID, or we'll need to generate it
+
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            // get the context 
+
+            var context = services.GetService<AppDbContext>();
+
+            // check if we have a cart id session
+
+            string cartId = session.GetString("cartId") ?? Guid.NewGuid().ToString();
+            session.SetString("cartId", cartId);
+
+            return new ShoppingCart(context) { ShoppingCartId = cartId };   
+            // get the session using the service provider
         }
 
         public string ShoppingCartId

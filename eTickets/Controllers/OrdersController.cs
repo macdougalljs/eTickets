@@ -18,7 +18,7 @@ namespace eTickets.Controllers
         private readonly ShoppingCart _shoppingCart;
 
 
-        public IActionResult Index()
+        public IActionResult ShoppingCart()
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
