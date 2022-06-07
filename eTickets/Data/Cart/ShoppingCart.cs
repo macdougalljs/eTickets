@@ -26,6 +26,31 @@ namespace eTickets.Data.Cart
             _context = context;
         }
 
+        public void AddItemToCart(Movie movie)
+        {
+            // does the movie already exist in the cart
+
+            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(x => x.Id == movie.Id && x.ShoppingCartId == ShoppingCartId);
+
+            if (shoppingCartItem == null)
+            {
+                // create a new item
+                shoppingCartItem = new ShoppingCartItem()
+                {
+
+                    ShoppingCartId = ShoppingCartId,
+                    Movie = movie,
+                    Amount = 1,
+                };
+
+                _context.ShoppingCartItems.Add(shoppingCartItem);
+            }
+            else
+            {
+                shoppingCartItem.Amount++;
+            }
+            _context.SaveChanges();
+        }
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Movie).ToList());
