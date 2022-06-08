@@ -76,7 +76,7 @@ namespace eTickets.Data.Cart
         {
             // does the movie already exist in the cart
 
-            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(x => x.Id == movie.Id && x.ShoppingCartId == ShoppingCartId);
+            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(x => x.Movie.Id == movie.Id && x.ShoppingCartId == ShoppingCartId);
 
             if (shoppingCartItem != null)
             {
