@@ -15,7 +15,6 @@ namespace eTickets.Models
         {
             get; set;
         }
-
         public double Price
         {
             get; set;
@@ -31,6 +30,10 @@ namespace eTickets.Models
             get; set;
         }
 
+        public int OrderId
+        {
+            get; set;
+        }
         [ForeignKey("OrderId")]
         public Order Order
         {
