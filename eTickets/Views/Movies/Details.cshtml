@@ -1,21 +1,12 @@
-﻿@*Define Model*@
-@model Movie
+﻿@model Movie
 
-@*Define ViewData*@
 @{
-    ViewData["Title"] = "Movie Details";
+    ViewData["Title"] = "Movie details";
 }
 
-
-@*Write Code*@
-
-@*HTML*@
-<h1>Welcome to Cinemas View - Index</h1>
-
 <div class="row">
-
     <div class="col-md-8 offset-2">
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card mb-12">
             <div class="row g-0">
                 <div class="col-md-12">
                     <div class="card-header text-white bg-info">
@@ -34,11 +25,15 @@
                         <p class="card-text">@Model.Description</p>
                         <p class="card-text">
                             <b>Cinema: </b>
-                            <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@Model.CinemaId">@Model.Cinema.Name</a>
+                            <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@Model.CinemaId">
+                                @Model.Cinema.Name
+                            </a>
                         </p>
                         <p class="card-text">
                             <b>Producer: </b>
-                            <a asp-controller="Producers" asp-action="Details" asp-route-id="@Model.ProducerId">@Model.Producer.FullName</a>
+                            <a asp-controller="Producers" asp-action="Details" asp-route-id="@Model.ProducerId">
+                                @Model.Producer.FullName
+                            </a>
                         </p>
                         <p class="card-text"><b>Category: </b>@Model.MovieCategory</p>
                         <p class="card-text"><b>Start Date: </b>@Model.StartDate.ToString("dd MMM yy")</p>
@@ -58,17 +53,16 @@
                                 <span class="badge bg-primary text-white">UPCOMING</span>
                             }
                         </p>
-
                         <p class="card-text">
                             <b>Actors: </b>
                             <hr />
                             <div class="row">
-                                @foreach (var item in Model.Actors_Movies)
+                                @foreach (var actor in Model.Actors_Movies)
                                 {
                                     <div class="column text-center">
-                                        <img class="border-info rounded-circle" src="@item.Actor.ProfilePictureURL" style="max-width: 150px" /><br>
-                                        <a asp-controller="Actors" asp-action="Details" asp-route-id="@item.ActorId">@item.Actor.FullName</a>
-
+                                        <img class="border-info rounded-circle" src="@actor.Actor.ProfilePictureURL" style="max-width: 150px" />
+                                        <br />
+                                        <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.ActorId">@actor.Actor.FullName</a>
                                     </div>
                                 }
                             </div>
@@ -77,14 +71,14 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="card-footer ">
+                    <div class="card-footer">
                         <p class="card-text">
-                            <a class="btn btn-outline-primary float-right" asp-action="Index">Back To List</a>
-                            <a class="btn btn-success text-white @((DateTime.Now > Model.EndDate) ? "disabled" : "") 
-                            asp-controller="Orders" 
-                            asp-action="AddItemToShoppingCart" 
-                            asp-route-id="@Model.Id">
-                            <i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Price.ToString("c"))</a>
+                            <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                Back to List
+                            </a>
+                            <a class="btn btn-success text-white  @((DateTime.Now > Model.EndDate) ? "disabled" : "")" 
+                               asp-controller="Orders" 
+                               asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Price.ToString("c"))</a>
                         </p>
                     </div>
                 </div>

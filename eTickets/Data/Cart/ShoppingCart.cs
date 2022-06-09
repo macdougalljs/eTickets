@@ -109,6 +109,8 @@ namespace eTickets.Data.Cart
 
             await _context.SaveChangesAsync();
 
+            ShoppingCartItems = new List<ShoppingCartItem>();  // clears the list by creating a new object
+
         }
        
     }

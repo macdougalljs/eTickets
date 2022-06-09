@@ -1,16 +1,8 @@
-﻿@*Define Model*@
-@model IEnumerable<Movie>
+﻿@model IEnumerable<Movie>
 
-@*Define ViewData*@
 @{
     ViewData["Title"] = "List of Movies";
 }
-
-
-@*Write Code*@
-
-@*HTML*@
-<h1>Welcome to Cinemas View - Index</h1>
 
 <div class="row">
     @foreach (var item in Model)
@@ -62,11 +54,14 @@
                     <div class="col-md-12">
                         <div class="card-footer ">
                             <p class="card-text">
-                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye-fill"></i> Show Details</a>
-                                <a class="btn btn-success text-white"  @((DateTime.Now > item.EndDate) ? "disabled" : "") 
-                                asp-controller="Orders" 
-                                asp-action="AddItemToShoppingCart" 
-                                asp-route-id="@item.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))</a>
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </a>
+                                <a class="btn btn-success text-white @((DateTime.Now > item.EndDate) ? "disabled" : "")" 
+                                   asp-controller="Orders" 
+                                   asp-action="AddItemToShoppingCart" 
+                                   asp-route-id="@item.Id">
+                                <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))</a>
                             </p>
                         </div>
                     </div>
@@ -74,7 +69,6 @@
             </div>
         </div>
     }
-
 </div>
 
-@await Html.PartialAsync("_CreateItem", "Movies")
+@await Html.PartialAsync("_CreateItem", "Movies") 

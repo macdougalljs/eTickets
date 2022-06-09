@@ -84,6 +84,8 @@ namespace eTickets.Controllers
             // cleanup the shopping cart
 
             await _shoppingCart.ClearShoppingCartAsync();
+            _shoppingCart.ShoppingCartItems = null;
+
             return View("OrderCompleted");
         }
     }
